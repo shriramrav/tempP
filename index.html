@@ -1,16 +1,13 @@
-<html>
-    <nav class="nav">
+<html> 
+    <div class="nav">
         <ul>
             <li class="title">Piano.js</li>
-            <li>
-                <input type="range" min="1" max="10" value="1" class="slider" id="slider" onchange="changedSlider()">
-            </li>
+            <li><input type="button" class="btn" value="Open Menu"></li>
         </ul>
-    </nav>
+    </div>
     <body id="body" onload="init()">
         <canvas id="visualizer" width="400" height="300" align="center"> </canvas>
-        <link rel="stylesheet" href="index.css">
-        <script src="visualizer.js" type="module"></script>
+        <script src="/scripts/visualizer.js" type="module"></script>
     </body>
-    
+    <link rel="stylesheet" href="/styling/index.css">
 </html>
