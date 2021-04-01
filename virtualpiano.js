@@ -34,8 +34,7 @@ export default class VirtualPiano {
                 index: index
             });
             this.timestamps.push(timestamp);
-            this.keys[index].press(timestamp);
-            this.notes.push(index);
+            this.notes.push(this.keys[index].press(timestamp));
 
         }
 
@@ -43,27 +42,25 @@ export default class VirtualPiano {
 
     anim(ctx) {
 
-        let step = (timestamp) => {
+        let step = () => {
             ctx.shadowBlur = 1;
             ctx.clearRect(0, 0, this.dims.width, this.dims.height - this.keys[0].properties.HEIGHT - 7);
 
             for (let i = 0; i < this.notes.length; i++) {
 
 
-                let note = this.keys[this.notes[i]].note;
+                this.notes[i].update();
 
-                note.update();
-
-                if (note.isFinished()) {
+                if (this.notes[i].isFinished()) {
                     this.notes.splice(i, 1); 
                     i--;
                 } else {
                     ctx.fillStyle = "green";
                     ctx.fillRect(
-                        note.X,
-                        note.Y,
-                        note.WIDTH,
-                        note.HEIGHT
+                        this.notes[i].X,
+                        this.notes[i].Y,
+                        this.notes[i].WIDTH,
+                        this.notes[i].HEIGHT
                     );
                 }
 

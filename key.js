@@ -1,7 +1,7 @@
 export default class Key {
     properties;
     timestamp = -1;
-
+    note;
 
     constructor() {}
 
@@ -15,31 +15,40 @@ export default class Key {
         const OFFSET = 2;
 
         this.timestamp = timestamp;
-        this.note.X = this.properties.X;
-        this.note.WIDTH = this.properties.WIDTH;
-        this.note.Y = this.properties.Y - OFFSET;
-        this.note.HEIGHT = 0;
 
-        this.note.update = () => {
+        let note = {};
 
-            if (this.note.Y > 0) {
-                this.note.Y = Math.max(0, this.note.Y - INCREMENT);
+
+        note.X = this.properties.X;
+        note.WIDTH = this.properties.WIDTH;
+        note.Y = this.properties.Y - OFFSET;
+        note.HEIGHT = 0;
+        note.released = false;
+
+        note.update = () => {
+
+            if (note.Y > 0) {
+                note.Y = Math.max(0, note.Y - INCREMENT);
             } 
 
-            if ((this.isPressed()) && (this.note.Y + this.note.HEIGHT < this.properties.Y - OFFSET) && (this.note.Y + this.note.HEIGHT + INCREMENT <=  this.properties.Y - OFFSET)) {
-                this.note.HEIGHT += INCREMENT;
-            } else if ((!this.isPressed()) && (this.note.Y == 0) && (this.note.HEIGHT > 0)) {
-                this.note.HEIGHT = Math.max(0, this.note.HEIGHT - INCREMENT);
+            if ((note.Y + note.HEIGHT < this.properties.Y - OFFSET) && (note.Y + note.HEIGHT + INCREMENT <=  this.properties.Y - OFFSET) && (!note.released)) {
+                note.HEIGHT += INCREMENT;
+            } 
+            if (!this.isPressed()) {
+                note.released = true;
+            }
+            
+            if ((note.released) && (note.Y == 0) && (note.HEIGHT > 0)) {
+                note.HEIGHT = Math.max(0, note.HEIGHT - INCREMENT);
             }
         };
 
 
-
-        this.note.isFinished = () => {
-            return ((!this.isPressed()) && (this.note.Y == 0) && (this.note.HEIGHT == 0));
+        note.isFinished = () => {
+            return ((note.released) && (note.Y == 0) && (note.HEIGHT == 0));
         }
 
-
+        return note;
     }
 
     isPressed() {
@@ -57,10 +66,4 @@ export default class Key {
         return data;
 
     }
-
-    getNotes() {
-        return this.note;
-    }
-
-
 }
