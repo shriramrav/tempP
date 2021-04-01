@@ -1,4 +1,5 @@
 import VirtualPiano from './virtualpiano.js';
+import colors from './colors.js';
 
 let visualizer = document.getElementById("visualizer");
 let ctx = visualizer.getContext("2d");
@@ -20,7 +21,7 @@ function success(access) {
 }
 
 function onUpdate(event) {
-    if (event.data.length > 1) {
+    if ((event.data.length > 1) && (event.data[0] != 176)) {
         piano.toggleKey(event.data[1] - 21, event.timeStamp);
     }
 }
@@ -33,6 +34,7 @@ function resize(x, y) {
 }
 
 function redraw() {
+
 
     let config = {
         WIDTH: Math.floor(visualizer.width / 52),
@@ -48,6 +50,9 @@ function redraw() {
     }
 
     visualizer.width = (config.WIDTH * 52) + (config.X_SHIFT * 2) + 1;
+
+    ctx.fillStyle = colors.background;
+    ctx.fillRect(0,0, visualizer.width, visualizer.height);
 
     piano.dimentionalize({
         width: visualizer.width,

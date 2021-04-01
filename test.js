@@ -1,4 +1,5 @@
 import Piano from './piano.js';
+import colors from './colors.js'
 
 function init() {
     let p = new Piano();

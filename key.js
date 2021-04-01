@@ -11,7 +11,7 @@ export default class Key {
    
     press(timestamp) {
 
-        const INCREMENT = 1;
+        const INCREMENT = 1.5;
         const OFFSET = 2;
 
         this.timestamp = timestamp;
@@ -24,6 +24,7 @@ export default class Key {
         note.Y = this.properties.Y - OFFSET;
         note.HEIGHT = 0;
         note.released = false;
+        note.isBlack = this.properties.isBlack;
 
         note.update = () => {
 

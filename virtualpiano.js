@@ -1,4 +1,5 @@
 import Key from './key.js';
+import colors from './colors.js'
 
 export default class VirtualPiano {
     dims = {};
@@ -35,7 +36,9 @@ export default class VirtualPiano {
             });
             this.timestamps.push(timestamp);
             this.notes.push(this.keys[index].press(timestamp));
-
+            this.notes.sort((a, b) => {
+                return a.isBlack - b.isBlack;
+            });
         }
 
     }
@@ -43,11 +46,13 @@ export default class VirtualPiano {
     anim(ctx) {
 
         let step = () => {
+            
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = colors.background;
+            ctx.fillRect(0, 0, this.dims.width, this.dims.height - this.keys[0].properties.HEIGHT - 7);
             ctx.shadowBlur = 1;
-            ctx.clearRect(0, 0, this.dims.width, this.dims.height - this.keys[0].properties.HEIGHT - 7);
 
             for (let i = 0; i < this.notes.length; i++) {
-
 
                 this.notes[i].update();
 
@@ -55,7 +60,7 @@ export default class VirtualPiano {
                     this.notes.splice(i, 1); 
                     i--;
                 } else {
-                    ctx.fillStyle = "green";
+                    ctx.fillStyle = this.notes[i].isBlack ? colors.black_key : colors.white_key ;
                     ctx.fillRect(
                         this.notes[i].X,
                         this.notes[i].Y,
