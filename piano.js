@@ -1,7 +1,7 @@
 import Key from './key.js';
 import colors from './colors.js'
 
-export default class VirtualPiano {
+export default class Piano {
     dims = {};
     keys = [];
     timestamps = [];
@@ -46,7 +46,7 @@ export default class VirtualPiano {
     anim(ctx) {
 
         let step = () => {
-            
+
             ctx.shadowBlur = 0;
             ctx.fillStyle = colors.background;
             ctx.fillRect(0, 0, this.dims.width, this.dims.height - this.keys[0].properties.HEIGHT - 7);

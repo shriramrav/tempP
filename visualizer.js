@@ -1,9 +1,10 @@
-import VirtualPiano from './virtualpiano.js';
+import Piano from './piano.js';
 import colors from './colors.js';
+import Key from './key.js';
 
 let visualizer = document.getElementById("visualizer");
 let ctx = visualizer.getContext("2d");
-let piano = new VirtualPiano();
+let piano = new Piano();
 
 function init() {
     resize(19, 18);
@@ -167,5 +168,10 @@ function failure() {
     alert('Failed to connect to MIDI device, please check if browser is supported');
 }
 
-window.init = init;
+function changedSlider() {
+    Key.INCREMENT = Number(document.getElementById("slider").value);
+    console.log(Key.INCREMENT);
+}
 
+window.init = init;
+window.changedSlider = changedSlider;

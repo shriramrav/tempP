@@ -3,6 +3,8 @@ export default class Key {
     timestamp = -1;
     note;
 
+    static INCREMENT = 2;
+
     constructor() {}
 
     init(properties) {
@@ -11,8 +13,10 @@ export default class Key {
    
     press(timestamp) {
 
-        const INCREMENT = 1.5;
+        const INCREMENT = Key.INCREMENT;
         const OFFSET = 2;
+
+        console.log("INCREMENT: " + INCREMENT);
 
         this.timestamp = timestamp;
 

@@ -1,8 +1,14 @@
 <html>
+    <nav class="nav">
+        <ul>
+            <li class="title">Piano.js</li>
+            <li>
+                <input type="range" min="1" max="10" value="1" class="slider" id="slider" onchange="changedSlider()">
+            </li>
+        </ul>
+    </nav>
     <body id="body" onload="init()">
-        <!-- <div class="container"> -->
-            <canvas id="visualizer" width="400" height="300" align="center"> </canvas>
-        <!-- </div> -->
+        <canvas id="visualizer" width="400" height="300" align="center"> </canvas>
         <link rel="stylesheet" href="index.css">
         <script src="visualizer.js" type="module"></script>
     </body>
