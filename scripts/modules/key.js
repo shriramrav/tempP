@@ -16,8 +16,6 @@ export default class Key {
         const INCREMENT = Key.INCREMENT;
         const OFFSET = 2;
 
-        console.log("INCREMENT: " + INCREMENT);
-
         this.timestamp = timestamp;
 
         let note = {};

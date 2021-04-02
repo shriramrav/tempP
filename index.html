@@ -6,8 +6,23 @@
         </ul>
     </div>
     <body id="body" onload="init()">
+        <div class="recording-container" id="recorder"> 
+            <div class="centered">
+                <input type="button" id="play" class="recording-btn play" onclick="toggle()">
+                <input type="button" class="recording-btn stop" onclick="stop()">
+                <input type="button" class="recording-btn record">
+            </div>
+        </div>
+        <div class="slider-container" id="slider"> 
+            <input type="range" class="centered" min="1" max="10" value="2" id="slider-obj" onchange="slid()">
+        </div>
         <canvas id="visualizer" width="400" height="300" align="center"> </canvas>
-        <script src="/scripts/visualizer.js" type="module"></script>
+        <script src="/scripts/main.js" type="module"></script>
+        <script src="/scripts/components/listeners.js" type="module"></script>
     </body>
     <link rel="stylesheet" href="/styling/index.css">
+    <link rel="stylesheet" href="/styling/recorder.css">
+    <link rel="stylesheet" href="/styling/slider.css">
+
+
 </html>

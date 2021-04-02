@@ -1,18 +1,29 @@
-import Piano from './piano.js';
-import colors from './colors.js';
-import Key from './key.js';
+import Piano from './modules/piano.js';
+import colors from './modules/config/colors.js';
+import Key from './modules/key.js';
+import components from './modules/config/components.js';
 
 let visualizer = document.getElementById("visualizer");
 let ctx = visualizer.getContext("2d");
 let piano = new Piano();
 
 function init() {
+
+    for (let i = 0; i < components.length; i++) {
+        let comp_script = document.createElement("script");
+        comp_script.setAttribute("src", `/scripts/components/${components[i]}.js`);
+        comp_script.setAttribute("type", "module");
+        document.body.appendChild(comp_script);
+    }
+
     resize(19, 18);
     redraw();
     piano.anim(ctx);
+
     navigator.requestMIDIAccess({
         sysex: true
     }).then(success, failure);
+
 }
 
 function success(access) {
@@ -35,7 +46,6 @@ function resize(x, y) {
 }
 
 function redraw() {
-
 
     let config = {
         WIDTH: Math.floor(visualizer.width / 52),
@@ -174,4 +184,5 @@ function changedSlider() {
 }
 
 window.init = init;
+window.piano = piano;
 window.changedSlider = changedSlider;

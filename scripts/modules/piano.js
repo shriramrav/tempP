@@ -1,5 +1,5 @@
 import Key from './key.js';
-import colors from './colors.js'
+import colors from './config/colors.js'
 
 export default class Piano {
     dims = {};
@@ -22,19 +22,23 @@ export default class Piano {
         return this.keys[index];
     }
 
-    toggleKey(index, timestamp) {
+    toggleKey(index, timestamp, is_recording = false) {
 
         if (this.keys[index].isPressed()) {
 
             let note = this.keys[index].release(timestamp);
-            this.events.get(note.start_time.toString()).duration = note.duration;
+
+            if (!is_recording) {
+                this.events.get(note.start_time.toString()).duration = note.duration;
+            }
 
         } else {
-
-            this.events.set(timestamp.toString(), {
-                index: index
-            });
-            this.timestamps.push(timestamp);
+            if (!is_recording) {
+                this.events.set(timestamp.toString(), {
+                    index: index
+                });
+                this.timestamps.push(timestamp);
+            }
             this.notes.push(this.keys[index].press(timestamp));
             this.notes.sort((a, b) => {
                 return a.isBlack - b.isBlack;
